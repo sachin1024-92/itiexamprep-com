@@ -1,0 +1,33 @@
+---
+layout: base
+---
+{%- assign _d = page.url | split: '/' | size | minus: 2 -%}{%- capture R -%}{%- for i in (1.._d) -%}../{%- endfor -%}{%- endcapture -%}
+{%- assign U = site.data.ui -%}{%- assign G = site.data.guides[page.guide] -%}
+<section class="section"><div class="container two-col">
+<div class="prose">
+{%- for s in G.sec %}
+{%- if s.h %}<h2>{% include b.html v=s.h %}</h2>{% endif %}
+{%- for p in s.p %}<p>{% include b.html v=p %}</p>{% endfor %}
+{%- if s.li %}<ul>{% for x in s.li %}<li>{% include b.html v=x %}</li>{% endfor %}</ul>{% endif %}
+{%- if s.ol %}<ol>{% for x in s.ol %}<li>{% include b.html v=x %}</li>{% endfor %}</ol>{% endif %}
+{%- if s.tb %}<div class="table-wrap"><table>{% for r in s.tb %}<tr>{% for c in r %}{% if forloop.parentloop.first %}<th>{% include b.html v=c %}</th>{% else %}<td>{% include b.html v=c %}</td>{% endif %}{% endfor %}</tr>{% endfor %}</table></div>{% endif %}
+{%- endfor %}
+{%- if G.links %}<h2>{% include b.html v=U.officialLinks %}</h2>
+<div class="official-links">{% for l in G.links %}<a class="pill-link" href="{{ l[1] }}" target="_blank" rel="noopener noreferrer">{{ l[0] }} ↗</a>{% endfor %}</div>{% endif %}
+<div class="callout amber"><p>⚠️ {% include b.html v=U.verify %}</p></div>
+{%- if G.faq %}
+<h2>{% include b.html v=U.faq %}</h2>
+<div class="faq-list">{% for f in G.faq %}<details class="faq-item"><summary><span class="l-en">{{ f[0] }}</span><span class="l-hi">{{ f[1] }}</span></summary><div class="faq-body"><p><span class="l-en">{{ f[2] }}</span><span class="l-hi">{{ f[3] }}</span></p></div></details>{% endfor %}</div>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for f in G.faq %}{"@type":"Question","name":{{ f[0] | jsonify }},"acceptedAnswer":{"@type":"Answer","text":{{ f[2] | jsonify }}}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>
+{%- endif %}
+</div>
+<aside><div class="sidebar-card"><h3>{% include b.html v=U.guides %}</h3><ul class="tight">
+{%- for g in site.data.guides %}<li>{% if g[0] == page.guide %}<strong>{% assign _v = g[1].n %}{% include b.html v=_v %}</strong>{% else %}<a href="{{ R }}pages/guides/{{ g[0] }}.html">{% assign _v = g[1].n %}{% include b.html v=_v %}</a>{% endif %}</li>{% endfor %}
+<li><a href="{{ R }}pages/exam-pattern.html">{% include b.html v=U.pattern %}</a></li>
+</ul></div>
+<div class="sidebar-card"><h3>{% include b.html v=U.practice %}</h3><ul class="tight">
+<li><a href="{{ R }}pages/mock-tests.html">{% include b.html v=U.allmocks %}</a></li>
+<li><a href="{{ R }}pages/practice/full-cbt-mock.html">{% include b.html v=U.fullmock %}</a></li>
+<li><a href="{{ R }}pages/trades.html">{% include b.html v=U.alltrades %}</a></li>
+</ul></div></aside>
+</div></section>
