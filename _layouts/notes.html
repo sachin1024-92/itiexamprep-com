@@ -1,0 +1,40 @@
+---
+layout: base
+---
+{%- assign _d = page.url | split: '/' | size | minus: 2 -%}{%- capture R -%}{%- for i in (1.._d) -%}../{%- endfor -%}{%- endcapture -%}
+{%- assign U = site.data.ui -%}{%- assign S = site.data.notes[page.subj] -%}{%- assign SQ = site.data.q[S.test] -%}
+<section class="section"><div class="container two-col">
+<div class="prose">
+{%- if page.ch == nil %}
+<p>{% include b.html v=S.lead %}</p>
+<div class="chapter-list">
+{%- for c in S.ch %}{% assign cp = c.p[0] %}
+<a class="chapter-card" href="{{ R }}pages/notes/{{ page.subj }}/{{ c.id }}.html"><span class="ch-no">{{ forloop.index }}</span><span><strong>{% include b.html v=c.n %}</strong><small>{% include b.html v=cp %}</small></span></a>
+{%- endfor %}
+</div>
+<p><a class="btn btn-primary" href="{{ R }}pages/practice/{{ S.test }}.html">▶ {% include b.html v=U.testYourself %} — {{ SQ.q | size }} MCQs</a></p>
+{%- else %}
+{%- assign C = S.ch[page.ch] -%}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":{{ C.n[0] | jsonify }},"description":{{ C.p[0][0] | truncate: 158 | jsonify }},"inLanguage":["en-IN","hi-IN"],"author":{"@type":"Organization","name":"ITI Exam Prep"},"publisher":{"@type":"Organization","name":"ITI Exam Prep"},"isAccessibleForFree":true,"mainEntityOfPage":"{{ site.url }}{{ page.url }}"}</script>
+{%- for p in C.p %}<p>{% include b.html v=p %}</p>{% endfor %}
+{%- if C.pts %}<h2>{% include b.html v=U.keyPoints %}</h2>
+<ul class="checklist">{% for x in C.pts %}<li>{% include b.html v=x %}</li>{% endfor %}</ul>{% endif %}
+{%- if C.f %}<h2>{% include b.html v=U.formulas %}</h2>
+<div class="table-wrap"><table>{% for x in C.f %}<tr><th>{% include b.html v=x %}</th><td>{{ x[2] }}</td></tr>{% endfor %}</table></div>{% endif %}
+{%- if C.tip %}<div class="callout amber"><p>💡 {% include b.html v=C.tip %}</p></div>{% endif %}
+<div class="pager">
+{%- assign pi = page.ch | minus: 1 -%}{%- assign ni = page.ch | plus: 1 -%}{%- assign PC = S.ch[pi] -%}{%- assign NC = S.ch[ni] -%}
+{%- if page.ch > 0 %}<a class="btn btn-secondary btn-sm" href="{{ R }}pages/notes/{{ page.subj }}/{{ PC.id }}.html">← {% include b.html v=PC.n %}</a>{% endif %}
+{%- if NC %}<a class="btn btn-secondary btn-sm" href="{{ R }}pages/notes/{{ page.subj }}/{{ NC.id }}.html">{% include b.html v=NC.n %} →</a>{% endif %}
+</div>
+<p><a class="btn btn-primary" href="{{ R }}pages/practice/{{ S.test }}.html">▶ {% include b.html v=U.testYourself %} — {{ SQ.q | size }} MCQs</a></p>
+{%- endif %}
+</div>
+<aside><div class="sidebar-card"><h3><a href="{{ R }}pages/notes/{{ page.subj }}.html">{% include b.html v=S.n %}</a></h3><ol class="tight">
+{%- for c in S.ch %}<li>{% if forloop.index0 == page.ch %}<strong>{% include b.html v=c.n %}</strong>{% else %}<a href="{{ R }}pages/notes/{{ page.subj }}/{{ c.id }}.html">{% include b.html v=c.n %}</a>{% endif %}</li>{% endfor %}
+</ol></div>
+<div class="sidebar-card"><h3>{% include b.html v=U.allnotes %}</h3><ul class="tight">
+{%- for s in site.data.notes %}{% assign sv = s[1].n %}<li><a href="{{ R }}pages/notes/{{ s[0] }}.html">{% include b.html v=sv %}</a></li>{% endfor %}
+<li><a href="{{ R }}pages/practice/full-cbt-mock.html">{% include b.html v=U.fullmock %}</a></li>
+</ul></div></aside>
+</div></section>

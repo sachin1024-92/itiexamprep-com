@@ -1,0 +1,14 @@
+title: ITI Exam Prep
+url: https://itiexamprep.com
+exclude: [BUILD_NOTES.md, README.md, scripts, Gemfile, Gemfile.lock]
+defaults:
+  - scope: {path: "pages/trades"}
+    values: {layout: trade, crumb: [["Trades","ट्रेड","pages/trades.html"]]}
+  - scope: {path: "pages/practice"}
+    values: {layout: quiz, crumb: [["Mock Tests","मॉक टेस्ट","pages/mock-tests.html"]]}
+  - scope: {path: "pages/notes"}
+    values: {layout: notes, crumb: [["Notes","नोट्स","pages/notes.html"]]}
+  - scope: {path: "pages/guides"}
+    values: {layout: guide, crumb: [["Guides","गाइड","pages/guides.html"]]}
+  - scope: {path: "assets/q"}
+    values: {layout: null, sitemap: false}

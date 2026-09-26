@@ -1,0 +1,4 @@
+---
+bank: sewing-technology
+---
+{{ site.data.q[page.bank] | jsonify }}

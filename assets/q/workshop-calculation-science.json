@@ -1,0 +1,4 @@
+---
+bank: workshop-calculation-science
+---
+{{ site.data.q[page.bank] | jsonify }}

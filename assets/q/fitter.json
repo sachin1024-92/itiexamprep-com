@@ -1,0 +1,4 @@
+---
+bank: fitter
+---
+{{ site.data.q[page.bank] | jsonify }}

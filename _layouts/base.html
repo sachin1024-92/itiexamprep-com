@@ -1,0 +1,158 @@
+{%- assign P_title = page.title -%}{%- assign P_desc = page.desc -%}{%- assign P_name = page.name -%}{%- assign P_lead = page.lead -%}{%- assign P_h1 = page.h1 -%}{%- assign S2 = nil -%}
+{%- if page.trade -%}{%- assign T = site.data.trades[page.trade] -%}{%- assign P_name = T.n -%}
+{%- capture P_title -%}ITI {{ T.n[0] }} Trade 2026 | Syllabus, Eligibility, Jobs & Free CBT MCQs{%- endcapture -%}
+{%- assign P_desc = T.ov[0] | truncate: 158 -%}{%- assign P_lead = T.ov -%}
+{%- capture h1en -%}ITI {{ T.n[0] }}{{ site.data.ui.tradeH1[0] }}{%- endcapture -%}{%- capture h1hi -%}ITI {{ T.n[1] }}{{ site.data.ui.tradeH1[1] }}{%- endcapture -%}{%- assign P_h1 = h1en | append: "@@" | append: h1hi | split: "@@" -%}
+{%- elsif page.bank -%}{%- assign B = site.data.q[page.bank] -%}{%- assign P_name = B.n -%}{%- assign nq = B.q | size -%}
+{%- capture P_title -%}ITI {{ B.n[0] }} Mock Test 2026 | {{ nq }} Free CBT MCQs (Hindi + English){%- endcapture -%}
+{%- capture P_desc -%}Free ITI {{ B.n[0] }} CBT practice test: {{ nq }} original MCQs with answers and explanations in English and Hindi. Practice mode, timed exam mode, palette and review.{%- endcapture -%}
+{%- capture h1en -%}ITI {{ B.n[0] }} {{ site.data.ui.mockH1[0] }}{%- endcapture -%}{%- capture h1hi -%}ITI {{ B.n[1] }} {{ site.data.ui.mockH1[1] }}{%- endcapture -%}{%- assign P_h1 = h1en | append: "@@" | append: h1hi | split: "@@" -%}{%- assign P_lead = site.data.ui.mockLead -%}
+{%- elsif page.subj -%}{%- assign S2 = site.data.notes[page.subj] -%}
+{%- if page.ch == nil -%}{%- assign P_name = S2.n -%}{%- capture P_title -%}ITI {{ S2.n[0] }} Notes | Chapter-wise (Hindi + English){%- endcapture -%}{%- assign P_desc = S2.lead[0] | truncate: 158 -%}{%- assign S2 = nil -%}
+{%- else -%}{%- assign C = S2.ch[page.ch] -%}{%- assign P_name = C.n -%}{%- capture P_title -%}{{ C.n[0] }} | ITI {{ S2.n[0] }} Notes{%- endcapture -%}{%- assign P_desc = C.p[0][0] | truncate: 158 -%}{%- endif -%}
+{%- elsif page.guide -%}{%- assign G = site.data.guides[page.guide] -%}{%- assign P_name = G.n -%}{%- assign P_title = G.title -%}{%- assign P_desc = G.lead[0] | truncate: 158 -%}{%- assign P_lead = G.lead -%}{%- assign P_h1 = G.h1 -%}
+{%- endif -%}
+{%- assign _d = page.url | split: '/' | size | minus: 2 -%}{%- capture R -%}{%- for i in (1.._d) -%}../{%- endfor -%}{%- endcapture -%}
+{%- assign canon = site.url | append: page.url -%}
+<!DOCTYPE html>
+<html lang="en-IN" data-root="{{ R }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{if(localStorage.getItem("itie_lang")==="hi"){document.documentElement.lang="hi";document.documentElement.setAttribute("data-lang","hi")}}catch(e){}</script>
+<title>{{ P_title }}</title>
+<meta name="description" content="{{ P_desc | escape }}">
+<link rel="canonical" href="{{ canon }}">
+<link rel="alternate" hreflang="en-IN" href="{{ canon }}">
+<link rel="alternate" hreflang="hi-IN" href="{{ canon }}">
+<link rel="alternate" hreflang="x-default" href="{{ canon }}">
+<meta name="robots" content="{% if page.noindex %}noindex, follow{% else %}index, follow{% endif %}">
+<meta name="theme-color" content="#4f46e5">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ P_title | escape }}">
+<meta property="og:description" content="{{ P_desc | escape }}">
+<meta property="og:url" content="{{ canon }}">
+<meta property="og:site_name" content="ITI Exam Prep">
+<meta property="og:locale" content="en_IN">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ P_title | escape }}">
+<meta name="twitter:description" content="{{ P_desc | escape }}">
+{%- if page.url == "/" %}
+<meta name="google-site-verification" content="p4ujvoVv6Qg0cYZ0xWJ7vixBA2WFTbGDZt-VQyIUOn4" />
+{%- endif %}
+<link rel="icon" href="{{ R }}favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ R }}assets/css/styles.css">
+<link rel="stylesheet" href="{{ R }}assets/css/v2.css">
+{%- if P_name %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ site.url }}/"}{% assign pos = 1 %}{% for c in page.crumb %}{% assign pos = pos | plus: 1 %},{"@type":"ListItem","position":{{ pos }},"name":{{ c[0] | jsonify }},"item":"{{ site.url }}/{{ c[2] }}"}{% endfor %}{% if S2 %}{% assign pos = pos | plus: 1 %},{"@type":"ListItem","position":{{ pos }},"name":{{ S2.n[0] | jsonify }},"item":"{{ site.url }}/pages/notes/{{ page.subj }}.html"}{% endif %}{% assign pos = pos | plus: 1 %},{"@type":"ListItem","position":{{ pos }},"name":{{ P_name[0] | jsonify }},"item":"{{ canon }}"}]}</script>
+{%- endif %}
+{%- if page.ld %}
+<script type="application/ld+json">{{ page.ld | jsonify }}</script>
+{%- endif %}
+{{ page.head }}
+</head>
+<body class="v2">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container nav-inner">
+    <div class="nav-left">
+      <div class="lang-toggle" role="group" aria-label="Language / भाषा">
+        <button type="button" class="lang-btn" data-lang-set="en">EN</button><span class="lang-sep" aria-hidden="true">|</span><button type="button" class="lang-btn" data-lang-set="hi">हिन्दी</button>
+      </div>
+      <a class="logo" href="{{ R }}index.html"><span class="logo-mark">ITI</span> Exam Prep</a>
+    </div>
+    <button class="search-btn search-btn-m" type="button" data-search-open aria-label="Search">⌕</button>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="{{ R }}index.html">{% include b.html v=site.data.ui.home %}</a></li>
+      <li class="dd"><button type="button" class="dd-btn" aria-expanded="false">{% include b.html v=site.data.ui.trades %} ▾</button>
+        <ul class="dd-menu dd-grid">
+          {%- for t in site.data.trades %}<li><a href="{{ R }}pages/trades/{{ t[0] }}.html">{{ t[1].e }} {% assign _v = t[1].n %}{% include b.html v=_v %}</a></li>{% endfor %}
+          <li class="dd-all"><a href="{{ R }}pages/trades.html">{% include b.html v=site.data.ui.alltrades %} →</a></li>
+        </ul></li>
+      <li class="dd"><button type="button" class="dd-btn" aria-expanded="false">{% include b.html v=site.data.ui.practice %} ▾</button>
+        <ul class="dd-menu">
+          <li><a href="{{ R }}pages/mock-tests.html">{% include b.html v=site.data.ui.allmocks %}</a></li>
+          <li><a href="{{ R }}pages/practice/full-cbt-mock.html">⏱ {% include b.html v=site.data.ui.fullmock %}</a></li>
+          <li><a href="{{ R }}pages/practice/employability-skills.html">{% include b.html v=site.data.ui.es %}</a></li>
+          <li><a href="{{ R }}pages/practice/workshop-calculation-science.html">{% include b.html v=site.data.ui.wcs %}</a></li>
+          <li><a href="{{ R }}pages/practice/engineering-drawing.html">{% include b.html v=site.data.ui.ed %}</a></li>
+          <li><a href="{{ R }}pages/progress.html">📈 {% include b.html v=site.data.ui.progress %}</a></li>
+        </ul></li>
+      <li class="dd"><button type="button" class="dd-btn" aria-expanded="false">{% include b.html v=site.data.ui.notes %} ▾</button>
+        <ul class="dd-menu">
+          <li><a href="{{ R }}pages/notes.html">{% include b.html v=site.data.ui.allnotes %}</a></li>
+          {%- for s in site.data.notes %}<li><a href="{{ R }}pages/notes/{{ s[0] }}.html">{% assign _v = s[1].n %}{% include b.html v=_v %}</a></li>{% endfor %}
+          <li><a href="{{ R }}pages/syllabus.html">{% include b.html v=site.data.ui.syllabus %}</a></li>
+        </ul></li>
+      <li class="dd"><button type="button" class="dd-btn" aria-expanded="false">{% include b.html v=site.data.ui.guides %} ▾</button>
+        <ul class="dd-menu">
+          {%- for g in site.data.guides %}<li><a href="{{ R }}pages/guides/{{ g[0] }}.html">{% assign _v = g[1].n %}{% include b.html v=_v %}</a></li>{% endfor %}
+          <li><a href="{{ R }}pages/exam-pattern.html">{% include b.html v=site.data.ui.pattern %}</a></li>
+        </ul></li>
+      <li><a href="{{ R }}pages/blog/index.html">{% include b.html v=site.data.ui.blog %}</a></li>
+      <li class="nav-search"><button class="search-btn" type="button" data-search-open aria-label="Search">⌕ <span class="l-en">Search</span><span class="l-hi" lang="hi">खोजें</span></button></li>
+    </ul>
+  </div>
+</header>
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-box container">
+    <input type="search" class="search-input" data-search placeholder="Search trades, notes, questions… / खोजें…" aria-label="Search site" autocomplete="off">
+    <button type="button" class="btn btn-secondary btn-sm" data-search-close>✕</button>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+<main id="main">
+{%- if P_name %}
+<section class="page-hero"><div class="container">
+<ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="{{ R }}index.html">{% include b.html v=site.data.ui.home %}</a></li>{% for c in page.crumb %}<li><a href="{{ R }}{{ c[2] }}">{% include b.html v=c %}</a></li>{% endfor %}{% if S2 %}<li><a href="{{ R }}pages/notes/{{ page.subj }}.html">{% include b.html v=S2.n %}</a></li>{% endif %}<li aria-current="page">{% include b.html v=P_name %}</li></ol>
+<h1>{% if P_h1 %}{% include b.html v=P_h1 %}{% else %}{% include b.html v=P_name %}{% endif %}</h1>
+{%- if P_lead %}<p>{% include b.html v=P_lead %}</p>{% endif %}
+</div></section>
+{%- endif %}
+{{ content }}
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="{{ R }}index.html"><span class="logo-mark">ITI</span> Exam Prep</a>
+        <p>{% include b.html v=site.data.ui.tagline %}</p>
+      </div>
+      <div><h4>{% include b.html v=site.data.ui.practice %}</h4><ul>
+        <li><a href="{{ R }}pages/trades.html">{% include b.html v=site.data.ui.alltrades %}</a></li>
+        <li><a href="{{ R }}pages/mock-tests.html">{% include b.html v=site.data.ui.allmocks %}</a></li>
+        <li><a href="{{ R }}pages/practice/full-cbt-mock.html">{% include b.html v=site.data.ui.fullmock %}</a></li>
+        <li><a href="{{ R }}pages/notes.html">{% include b.html v=site.data.ui.allnotes %}</a></li>
+        <li><a href="{{ R }}pages/syllabus.html">{% include b.html v=site.data.ui.syllabus %}</a></li>
+      </ul></div>
+      <div><h4>{% include b.html v=site.data.ui.guides %}</h4><ul>
+        {%- for g in site.data.guides limit: 6 %}<li><a href="{{ R }}pages/guides/{{ g[0] }}.html">{% assign _v = g[1].n %}{% include b.html v=_v %}</a></li>{% endfor %}
+        <li><a href="{{ R }}pages/resources.html">{% include b.html v=site.data.ui.official %}</a></li>
+      </ul></div>
+      <div><h4>{% include b.html v=site.data.ui.site %}</h4><ul>
+        <li><a href="{{ R }}pages/blog/index.html">{% include b.html v=site.data.ui.blog %}</a></li>
+        <li><a href="{{ R }}pages/about.html">{% include b.html v=site.data.ui.about %}</a></li>
+        <li><a href="{{ R }}pages/contact.html">{% include b.html v=site.data.ui.contact %}</a></li>
+        <li><a href="{{ R }}pages/privacy.html">{% include b.html v=site.data.ui.privacy %}</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year>2026</span> ITI Exam Prep · Success Tips · Jabalpur, MP</p>
+      <p class="disclaimer">{% include b.html v=site.data.ui.disclaimer %}</p>
+    </div>
+  </div>
+</footer>
+<script src="{{ R }}assets/js/config.js"></script>
+<script src="{{ R }}assets/js/analytics.js"></script>
+<script src="{{ R }}assets/js/main.js" defer></script>
+<script src="{{ R }}assets/js/v2.js" defer></script>
+{{ page.foot }}
+</body>
+</html>

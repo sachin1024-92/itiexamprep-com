@@ -1,0 +1,4 @@
+---
+bank: employability-skills
+---
+{{ site.data.q[page.bank] | jsonify }}
