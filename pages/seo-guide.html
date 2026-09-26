@@ -1,23 +1,165 @@
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Google Search Console Setup for itiexamprep.com | ITI Exam Prep</title>
 <meta name="description" content="Original owner guide: verify itiexamprep.com in Google Search Console, submit sitemap.xml, and check indexing — Analytics is separate from ranking.">
 <link rel="canonical" href="https://itiexamprep.com/pages/seo-guide.html">
 <!-- Language: one URL serves EN/HI via client-side i18n (localStorage itie_lang). -->
-<link rel="alternate" hreflang="en-IN" href="https://itiexamprep.com/pages/seo-guide.html"><link rel="alternate" hreflang="hi-IN" href="https://itiexamprep.com/pages/seo-guide.html"><link rel="alternate" hreflang="x-default" href="https://itiexamprep.com/pages/seo-guide.html">
-<meta name="robots" content="index, follow"><meta property="og:type" content="website"><meta property="og:title" content="Google Search Console Setup for itiexamprep.com | ITI Exam Prep"><meta property="og:description" content="Original owner guide: verify itiexamprep.com in Google Search Console, submit sitemap.xml, and check indexing — Analytics is separate from ranking."><meta property="og:url" content="https://itiexamprep.com/pages/seo-guide.html"><meta property="og:site_name" content="ITI Exam Prep"><meta property="og:locale" content="en_IN"><meta property="og:locale:alternate" content="hi_IN"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Google Search Console Setup for itiexamprep.com | ITI Exam Prep"><meta name="twitter:description" content="Original owner guide: verify itiexamprep.com in Google Search Console, submit sitemap.xml, and check indexing — Analytics is separate from ranking.">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/styles.css">
-</head><body>
-<header class="site-header"><div class="container nav-inner"><div class="nav-left"><div class="lang-toggle" role="group" aria-label="Language" data-i18n-aria="lang.label"><button type="button" class="lang-btn" data-lang-set="en" aria-pressed="true">EN</button><span class="lang-sep" aria-hidden="true">|</span><button type="button" class="lang-btn" data-lang-set="hi" aria-pressed="false">हिन्दी</button></div><a class="logo" href="../index.html"><span class="logo-mark">ITI</span> Exam Prep</a></div><ul class="nav-links" id="nav-menu"><li><a href="../index.html" data-i18n="nav.home">Home</a></li><li><a href="../pages/resources.html" data-i18n="nav.resources">Resources</a></li></ul></div></header>
-<main id="main"><section class="page-hero"><div class="container"><ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="../index.html" data-i18n="crumb.home">Home</a></li><li>SEO Guide</li></ol><h1 data-i18n="seo.h1">Google Search Console &amp; SEO Setup</h1><p data-i18n="seo.lead">How the site owner verifies the domain and submits the sitemap so Google can discover pages.</p></div></section>
-<section class="section"><div class="container prose"><div class="callout"><p><strong>Important:</strong> Google Analytics tracks visits; it does <em>not</em> by itself improve rankings. Search Console helps you monitor crawl, indexing, and search queries.</p></div>
-<h2>1. Confirm the site is crawlable</h2><ul><li>Open <a href="https://itiexamprep.com/robots.txt">robots.txt</a> — it should <code>Allow: /</code> and point to the sitemap.</li><li>Open <a href="https://itiexamprep.com/sitemap.xml">sitemap.xml</a> — every public page should use absolute URLs.</li></ul>
-<h2>2. Verify ownership in Google Search Console</h2><ol><li>Sign in at <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">search.google.com/search-console</a>.</li><li>Add <code>https://itiexamprep.com</code> and complete DNS, HTML file, or meta-tag verification.</li><li>Wait until Search Console shows ownership verified.</li></ol>
-<h2>3. Submit the sitemap</h2><ol><li>In Search Console → <strong>Sitemaps</strong>, enter <code>sitemap.xml</code>.</li><li>Submit and check status after a day or two.</li><li>Use URL Inspection on important pages and request indexing if needed.</li></ol>
-<h2>4. Optional: Google Analytics 4</h2><ol><li>Create a GA4 property and copy the ID in format <code>G-XXXXXXXXXX</code>.</li><li>Set <code>gaMeasurementId</code> in <code>assets/js/config.js</code>; leave it empty to skip loading gtag.</li><li>Upload the updated file and confirm real-time hits.</li></ol>
-<h2>5. Language note for this site</h2><p>English and Hindi share the same URLs. Visitors switch language with the top-left <strong>EN | हिन्दी</strong> control; preference is stored in <code>localStorage</code> key <code>itie_lang</code>.</p>
-<h2>6. Ongoing hygiene</h2><ul><li>Keep titles and meta descriptions unique.</li><li>After adding pages, update <code>sitemap.xml</code>.</li><li>Fix 404s reported in Search Console.</li><li>Verify latest exam circulars on DGT / NCVT — this site is unofficial.</li></ul>
-<p><a class="btn btn-primary" href="resources.html">Official resources</a> <a class="btn btn-secondary" href="about.html">About</a> <a class="btn btn-secondary" href="contact.html">Contact</a></p>
-</div></section></main><footer class="site-footer"><div class="container"><p>© <span data-year>2026</span> ITI Exam Prep · Success Tips · Jabalpur, MP</p></div></footer><script src="../assets/js/config.js"></script><script src="../assets/js/analytics.js"></script><script src="../assets/js/i18n.js"></script><script src="../assets/js/main.js" defer></script></body></html>
+<link rel="alternate" hreflang="en-IN" href="https://itiexamprep.com/pages/seo-guide.html">
+<link rel="alternate" hreflang="hi-IN" href="https://itiexamprep.com/pages/seo-guide.html">
+<link rel="alternate" hreflang="x-default" href="https://itiexamprep.com/pages/seo-guide.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Google Search Console Setup for itiexamprep.com | ITI Exam Prep">
+<meta property="og:description" content="Original owner guide: verify itiexamprep.com in Google Search Console, submit sitemap.xml, and check indexing — Analytics is separate from ranking.">
+<meta property="og:url" content="https://itiexamprep.com/pages/seo-guide.html">
+<meta property="og:site_name" content="ITI Exam Prep">
+<meta property="og:locale" content="en_IN">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Google Search Console Setup for itiexamprep.com | ITI Exam Prep">
+<meta name="twitter:description" content="Original owner guide: verify itiexamprep.com in Google Search Console, submit sitemap.xml, and check indexing — Analytics is separate from ranking.">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Analytics: set window.ITI_SITE_CONFIG.gaMeasurementId in assets/js/config.js
+     (or window.ITI_GA_ID) to your GA4 Measurement ID from analytics.google.com, e.g. G-XXXXXXXXXX.
+     Leave empty to skip loading gtag. -->
+<link rel="stylesheet" href="../assets/css/styles.css">
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-inner">
+    <div class="nav-left">
+      <div class="lang-toggle" role="group" aria-label="Language" data-i18n-aria="lang.label">
+        <button type="button" class="lang-btn" data-lang-set="en" aria-pressed="true">EN</button>
+        <span class="lang-sep" aria-hidden="true">|</span>
+        <button type="button" class="lang-btn" data-lang-set="hi" aria-pressed="false">हिन्दी</button>
+      </div>
+      <a class="logo" href="../index.html"><span class="logo-mark">ITI</span> Exam Prep</a>
+    </div>
+    <button class="nav-toggle" type="button" aria-label="Open menu" data-i18n-aria="nav.menu" aria-expanded="false" aria-controls="nav-menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="../pages/trades.html" data-i18n="nav.trades">Trades</a></li>
+      <li><a href="../pages/mock-tests.html" data-i18n="nav.mocks">Mock Tests</a></li>
+      <li><a href="../pages/syllabus.html" data-i18n="nav.syllabus">Syllabus</a></li>
+      <li><a href="../pages/exam-pattern.html" data-i18n="nav.pattern">Exam Pattern</a></li>
+      <li><a href="../pages/study-tips.html" data-i18n="nav.tips">Tips</a></li>
+      <li><a href="../pages/blog/index.html" data-i18n="nav.blog">Blog</a></li>
+      <li><a class="nav-cta" href="../pages/mock-tests.html"><span data-i18n="nav.cta">Start Free Mock</span></a></li>
+    </ul>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="container">
+<ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="../index.html" data-i18n="crumb.home">Home</a></li><li>SEO Guide</li></ol>
+<h1 data-i18n="seo.h1">Google Search Console &amp; SEO Setup</h1>
+<p data-i18n="seo.lead">How the site owner verifies the domain and submits the sitemap so Google can discover pages.</p>
+</div></section>
+<section class="section"><div class="container prose">
+<div class="callout"><p><strong>Important:</strong> Google Analytics tracks visits; it does <em>not</em> by itself improve rankings. Search Console helps you monitor crawl, indexing, and search queries. Both are free Google tools for site owners.</p></div>
+
+<h2>1. Confirm the site is crawlable</h2>
+<ul>
+  <li>Open <a href="https://itiexamprep.com/robots.txt">https://itiexamprep.com/robots.txt</a> — it should <code>Allow: /</code> and point to the sitemap.</li>
+  <li>Open <a href="https://itiexamprep.com/sitemap.xml">https://itiexamprep.com/sitemap.xml</a> — every public page should use absolute <code>https://itiexamprep.com/...</code> URLs.</li>
+</ul>
+
+<h2>2. Verify ownership in Google Search Console</h2>
+<ol>
+  <li>Sign in at <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">search.google.com/search-console</a> with the Google account that manages the site.</li>
+  <li>Add a property for <code>https://itiexamprep.com</code> (URL-prefix) or the domain <code>itiexamprep.com</code> (DNS verification).</li>
+  <li>Complete verification using the method Google shows (HTML file upload via Hostinger File Manager, DNS TXT record, or HTML meta tag). Prefer DNS or file upload so it stays valid after theme changes.</li>
+  <li>Wait until Search Console shows “Ownership verified”.</li>
+</ol>
+
+<h2>3. Submit the sitemap</h2>
+<ol>
+  <li>In Search Console → <strong>Sitemaps</strong>, enter <code>sitemap.xml</code> (full URL: <code>https://itiexamprep.com/sitemap.xml</code>).</li>
+  <li>Submit and check status after a day or two. “Success” means Google fetched the file; indexing of each URL still takes time.</li>
+  <li>Use <strong>URL Inspection</strong> on important pages (home, trades, mock tests) and request indexing if needed after major updates.</li>
+</ol>
+
+<h2>4. Optional: Google Analytics 4</h2>
+<p>To measure traffic (separate from Search Console):</p>
+<ol>
+  <li>Create a GA4 property at <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer">analytics.google.com</a>.</li>
+  <li>Copy the Measurement ID (format <code>G-XXXXXXXXXX</code>).</li>
+  <li>Open <code>assets/js/config.js</code> on the server and set <code>gaMeasurementId: "G-XXXXXXXXXX"</code>. Leave empty to skip loading gtag (no errors).</li>
+  <li>Redeploy / upload the updated file. Confirm real-time hits after visiting the live site.</li>
+</ol>
+
+<h2>5. Language note for this site</h2>
+<p>English and Hindi share the same URLs. Visitors switch language with the top-left <strong>EN | हिन्दी</strong> control; preference is stored in <code>localStorage</code> key <code>itie_lang</code>. Pages include <code>hreflang</code> alternate tags pointing to the same URL for <code>en-IN</code> and <code>hi-IN</code>, plus <code>og:locale:alternate</code> for <code>hi_IN</code>.</p>
+
+<h2>6. Ongoing hygiene</h2>
+<ul>
+  <li>Keep titles and meta descriptions unique per page.</li>
+  <li>After adding pages, update <code>sitemap.xml</code> and re-submit if Search Console does not pick them up.</li>
+  <li>Fix 404s reported in Coverage / Pages reports.</li>
+  <li>Always verify latest exam circulars on DGT / NCVT — this site is unofficial.</li>
+</ul>
+
+<p><a class="btn btn-primary" href="resources.html">Official resources</a>
+<a class="btn btn-secondary" href="about.html">About</a>
+<a class="btn btn-secondary" href="contact.html">Contact</a></p>
+</div></section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="../index.html"><span class="logo-mark">ITI</span> Exam Prep</a>
+        <p><span data-i18n="footer.tagline">Free NCVT/SCVT CTS AITT CBT study hub for Indian ITI trainees — mock tests, syllabus, and exam tips for 2026.</span></p>
+      </div>
+      <div>
+        <h4><span data-i18n="footer.study">Study</span></h4>
+        <ul>
+          <li><a href="../pages/trades.html" data-i18n="footer.allTrades">All Trades</a></li>
+          <li><a href="../pages/mock-tests.html" data-i18n="footer.mocks">Mock Tests</a></li>
+          <li><a href="../pages/syllabus.html" data-i18n="footer.syllabus">Syllabus</a></li>
+          <li><a href="../pages/employability-skills.html" data-i18n="footer.es">Employability Skills</a></li>
+          <li><a href="../pages/exam-pattern.html" data-i18n="footer.pattern">Exam Pattern</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4><span data-i18n="footer.resources">Resources</span></h4>
+        <ul>
+          <li><a href="../pages/resources.html" data-i18n="footer.resourcesPage">Official Resources</a></li>
+          <li><a href="../pages/study-tips.html" data-i18n="footer.tips">Study Tips</a></li>
+          <li><a href="../pages/blog/index.html" data-i18n="footer.blog">Blog</a></li>
+          <li><a href="https://bharatskills.gov.in" rel="noopener noreferrer" target="_blank">Bharat Skills</a></li>
+          <li><a href="https://dgt.gov.in" rel="noopener noreferrer" target="_blank">DGT</a></li>
+          <li><a href="https://www.ncvtmis.gov.in" rel="noopener noreferrer" target="_blank">NCVT MIS</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4><span data-i18n="footer.site">Site</span></h4>
+        <ul>
+          <li><a href="../pages/about.html" data-i18n="footer.about">About</a></li>
+          <li><a href="../pages/contact.html" data-i18n="footer.contact">Contact</a></li>
+          <li><a href="../pages/privacy.html" data-i18n="footer.privacy">Privacy</a></li>
+          <li><a href="../pages/seo-guide.html" data-i18n="footer.seo">SEO / Search Console</a></li>
+          <li><a href="mailto:sachin1024@gmail.com">sachin1024@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year>2026</span> ITI Exam Prep · Success Tips · Jabalpur, MP</p>
+      <p class="disclaimer"><span data-i18n="footer.disclaimer">Disclaimer: ITI Exam Prep is an independent, unofficial study resource. It is not affiliated with DGT, NCVT, SCVT, or NIMI. Always verify exam dates, patterns, and results on official portals (dgt.gov.in, ncvtmis.gov.in, bharatskills.gov.in, skillindiadigital.gov.in).</span></p>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/analytics.js"></script>
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

@@ -90,6 +90,7 @@ Visit `http://localhost:8080/`. Toggle हिन्दी, reload, confirm persi
 | `pages/trades/*.html` | 7 trade hubs + practice MCQs |
 | `pages/mock-tests/*.html` | Interactive quizzes |
 | `pages/blog/iti-cbt-study-plan-common-mistakes.html` | New study-plan article |
+| `pages/blog/iti-fitter-cbt-measuring-tools-checklist.html` | Fitter measuring tools / fits / safety checklist |
 | `assets/js/config.js` | GA Measurement ID |
 | `assets/js/i18n.js` | Translations dictionary |
 | `assets/js/analytics.js` | Conditional gtag loader |
