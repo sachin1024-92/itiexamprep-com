@@ -1,0 +1,57 @@
+---
+layout: base
+---
+{%- assign _d = page.url | split: '/' | size | minus: 2 -%}{%- capture R -%}{%- for i in (1.._d) -%}../{%- endfor -%}{%- endcapture -%}
+{%- assign T = site.data.trades[page.trade] -%}{%- assign U = site.data.ui -%}{%- assign Q = site.data.q[page.trade] -%}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":{{ T.n[0] | prepend: "ITI " | append: " CBT preparation" | jsonify }},"description":{{ T.ov[0] | jsonify }},"provider":{"@type":"Organization","name":"ITI Exam Prep","url":"https://itiexamprep.com/"},"educationalLevel":"ITI / CTS","inLanguage":["en-IN","hi-IN"],"isAccessibleForFree":true,"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","courseWorkload":"PT10H"},"offers":{"@type":"Offer","price":"0","priceCurrency":"INR","category":"Free"}}</script>
+<section class="section"><div class="container two-col">
+<div class="prose">
+<div class="fact-grid">
+  <div class="fact"><span>{% include b.html v=U.dur %}</span><strong>{% include b.html v=T.dur %}</strong></div>
+  <div class="fact"><span>{% include b.html v=U.elig %}</span><strong>{% include b.html v=T.elig %}</strong></div>
+  <div class="fact"><span>{% include b.html v=U.type %}</span><strong>{% if T.type == "eng" %}{% include b.html v=U.eng %}{% else %}{% include b.html v=U.noneng %}{% endif %}</strong></div>
+  <div class="fact"><span>{% include b.html v=U.practiceQ %}</span><strong>{{ Q.q | size }} MCQs</strong></div>
+</div>
+<div class="cta-row">
+  <a class="btn btn-primary" href="{{ R }}pages/practice/{{ page.trade }}.html">▶ {% include b.html v=U.startTest %}</a>
+  <a class="btn btn-amber" href="{{ R }}pages/practice/full-cbt-mock.html?trade={{ page.trade }}">⏱ {% include b.html v=U.startFull %}</a>
+</div>
+<h2>{% if T.y2.size > 0 %}{% include b.html v=U.y1 %}{% else %}{% include b.html v=U.y1only %}{% endif %}</h2>
+<ol class="syl">{% for x in T.y1 %}<li>{% include b.html v=x %}</li>{% endfor %}</ol>
+{%- if T.y2.size > 0 %}
+<h2>{% include b.html v=U.y2 %}</h2>
+<ol class="syl">{% for x in T.y2 %}<li>{% include b.html v=x %}</li>{% endfor %}</ol>
+{%- endif %}
+<div class="callout"><p>{% include b.html v=U.syllNote %} <a href="https://bharatskills.gov.in" target="_blank" rel="noopener noreferrer">bharatskills.gov.in ↗</a></p></div>
+<h2>{% include b.html v=U.tips %}</h2>
+<ul class="checklist">{% for x in T.tips %}<li>{% include b.html v=x %}</li>{% endfor %}</ul>
+<h2>{% include b.html v=U.jobs %}</h2>
+<ul>{% for x in T.jobs %}<li>{% include b.html v=x %}</li>{% endfor %}</ul>
+{%- assign ga = site.data.guides.apprenticeship -%}{%- assign gj = site.data.guides["jobs-after-iti"] -%}
+<p><a href="{{ R }}pages/guides/apprenticeship.html">{% include b.html v=ga.n %} →</a> · <a href="{{ R }}pages/guides/jobs-after-iti.html">{% include b.html v=gj.n %} →</a></p>
+<h2>{% include b.html v=U.common %}</h2>
+<div class="mini-grid">
+{%- if T.type == "eng" %}
+  <a class="mini-card" href="{{ R }}pages/notes/wcs.html">📐 {% include b.html v=site.data.notes.wcs.n %}</a>
+  <a class="mini-card" href="{{ R }}pages/notes/ed.html">📏 {% include b.html v=site.data.notes.ed.n %}</a>
+{%- endif %}
+  <a class="mini-card" href="{{ R }}pages/notes/es.html">💼 {% include b.html v=site.data.notes.es.n %}</a>
+</div>
+<div class="practice-box">
+<h3>{% include b.html v=U.testYourself %}</h3>
+<p class="note">{% include b.html v=U.origNote %}</p>
+{%- for x in Q.q limit: 5 %}{% include qa.html x=x n=forloop.index %}{% endfor %}
+<p><a class="btn btn-primary btn-sm" href="{{ R }}pages/practice/{{ page.trade }}.html">{% include b.html v=U.startTest %} ({{ Q.q | size }}) →</a></p>
+</div>
+{%- if T.blog %}<p><a class="btn btn-secondary" href="{{ R }}pages/blog/{{ T.blog }}">📝 {% include b.html v=U.readBlog %}</a></p>{% endif %}
+</div>
+<aside><div class="sidebar-card"><h3>{% include b.html v=U.quickLinks %}</h3><ul class="tight">
+<li><a href="{{ R }}pages/practice/{{ page.trade }}.html">{% include b.html v=U.startTest %}</a></li>
+<li><a href="{{ R }}pages/exam-pattern.html">{% include b.html v=U.pattern %}</a></li>
+<li><a href="{{ R }}pages/syllabus.html">{% include b.html v=U.syllabus %}</a></li>
+{%- for g in site.data.guides %}{% assign gv = g[1].n %}<li><a href="{{ R }}pages/guides/{{ g[0] }}.html">{% include b.html v=gv %}</a></li>{% endfor %}
+</ul></div>
+<div class="sidebar-card"><h3>{% include b.html v=U.trades %}</h3><ul class="tight">
+{%- for t in site.data.trades %}{% if t[0] != page.trade %}{% assign tv = t[1].n %}<li><a href="{{ R }}pages/trades/{{ t[0] }}.html">{{ t[1].e }} {% include b.html v=tv %}</a></li>{% endif %}{% endfor %}
+</ul></div></aside>
+</div></section>
