@@ -1,0 +1,21 @@
+---
+layout: null
+sitemap: false
+---
+[
+{%- for t in site.data.trades %}{"k":"t","t":{{ t[1].n[0] | prepend: "ITI " | append: " trade — syllabus, eligibility, jobs" | jsonify }},"h":{{ t[1].n[1] | prepend: "ITI " | append: " ट्रेड — सिलेबस, पात्रता, नौकरी" | jsonify }},"d":{{ t[1].ov[0] | append: " " | append: t[1].ov[1] | jsonify }},"u":"pages/trades/{{ t[0] }}.html"},
+{"k":"p","t":{{ t[1].n[0] | append: " mock test / practice MCQs" | jsonify }},"h":{{ t[1].n[1] | append: " मॉक टेस्ट / अभ्यास MCQ" | jsonify }},"u":"pages/practice/{{ t[0] }}.html"},
+{%- endfor %}
+{%- for s in site.data.notes %}{"k":"n","t":{{ s[1].n[0] | append: " notes" | jsonify }},"h":{{ s[1].n[1] | append: " नोट्स" | jsonify }},"u":"pages/notes/{{ s[0] }}.html"},{"k":"p","t":{{ s[1].n[0] | append: " test" | jsonify }},"h":{{ s[1].n[1] | append: " टेस्ट" | jsonify }},"u":"pages/practice/{{ s[1].test }}.html"},
+{%- for c in s[1].ch %}{"k":"n","t":{{ c.n[0] | jsonify }},"h":{{ c.n[1] | jsonify }},"d":{{ c.p[0][0] | append: " " | append: c.p[0][1] | jsonify }},"u":"pages/notes/{{ s[0] }}/{{ c.id }}.html"},{% endfor %}
+{%- endfor %}
+{%- for g in site.data.guides %}{"k":"g","t":{{ g[1].n[0] | jsonify }},"h":{{ g[1].n[1] | jsonify }},"d":{{ g[1].lead[0] | append: " " | append: g[1].lead[1] | jsonify }},"u":"pages/guides/{{ g[0] }}.html"},{% endfor %}
+{"k":"p","t":"Full CBT mock test","h":"फुल CBT मॉक टेस्ट","u":"pages/practice/full-cbt-mock.html"},
+{"k":"s","t":"CBT exam pattern 2026 — marks, questions, duration","h":"CBT परीक्षा पैटर्न — अंक, प्रश्न, अवधि","u":"pages/exam-pattern.html"},
+{"k":"s","t":"Syllabus map","h":"सिलेबस मैप","u":"pages/syllabus.html"},
+{"k":"s","t":"Study tips for ITI CBT","h":"ITI CBT पढ़ाई टिप्स","u":"pages/study-tips.html"},
+{"k":"s","t":"Official resources — DGT, NCVT MIS, Bharat Skills","h":"आधिकारिक संसाधन","u":"pages/resources.html"},
+{%- for f in site.static_files %}{% if f.path contains "/pages/blog/" and f.extname == ".html" and f.basename != "index" %}{"k":"b","t":{{ f.basename | replace: "-", " " | replace: "iti ", "ITI " | replace: "cbt", "CBT" | capitalize | jsonify }},"u":{{ f.path | remove_first: "/" | jsonify }}},{% endif %}{% endfor %}
+{%- for b in site.data.q %}{% assign pu = "pages/practice/" | append: b[0] | append: ".html" %}{% for x in b[1].q %}{"k":"q","t":{{ x[0] | jsonify }},"h":{{ x[1] | jsonify }},"u":"{{ pu }}"},{% endfor %}{% endfor %}
+{"k":"s","t":"Blog — ITI CBT revision articles","h":"ब्लॉग — ITI CBT रिवीज़न लेख","u":"pages/blog/index.html"}
+]

@@ -1,0 +1,13 @@
+---
+layout: base
+title: "ITI Guides | Admission, NCVT vs SCVT, Admit Card, Result, Apprenticeship & Jobs"
+desc: "Plain-language ITI guides: admission process, NCVT vs SCVT, CBT admit card, result and marksheet on NCVT MIS, apprenticeship, jobs and higher studies after ITI, and FAQs."
+name: ["Guides","गाइड"]
+h1: ["ITI guides — from admission to job","ITI गाइड — एडमिशन से नौकरी तक"]
+lead: ["Step-by-step explanations with links to official portals. We never publish unofficial dates or cut-offs.","आधिकारिक पोर्टल के लिंक के साथ चरण-दर-चरण जानकारी। हम कभी अनौपचारिक तिथियाँ या कट-ऑफ प्रकाशित नहीं करते।"]
+---
+<section class="section"><div class="container"><div class="hub-grid">
+{%- for g in site.data.guides %}<a class="mini-card" href="guides/{{ g[0] }}.html">{% assign _v = g[1].n %}{% include b.html v=_v %}<small>{% assign _v = g[1].lead %}{% include b.html v=_v %}</small></a>{% endfor %}
+<a class="mini-card" href="exam-pattern.html">{% include b.html v=site.data.ui.pattern %}<small><span class="l-en">Subject-wise questions and marks</span><span class="l-hi">विषय-वार प्रश्न और अंक</span></small></a>
+<a class="mini-card" href="resources.html">{% include b.html v=site.data.ui.official %}<small>DGT · NCVT MIS · Bharat Skills · Skill India Digital</small></a>
+</div></div></section>

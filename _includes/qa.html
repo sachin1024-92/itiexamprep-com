@@ -1,0 +1,3 @@
+{%- assign x = include.x -%}<details class="qa"><summary><strong>Q{{ include.n }}.</strong> <span class="l-en">{{ x[0] | escape }}</span><span class="l-hi">{{ x[1] | default: x[0] | escape }}</span></summary>
+<ol class="opts" type="A">{% for o in x[2] %}{% assign oi = forloop.index0 %}<li{% if oi == x[4] %} class="ok"{% endif %}>{% if x[3] and x[3].size > 0 %}{% assign oh = x[3][oi] %}{% else %}{% assign oh = o %}{% endif %}<span class="l-en">{{ o | escape }}</span><span class="l-hi">{{ oh | escape }}</span></li>{% endfor %}</ol>
+<p class="ans">✔ <span class="l-en">{{ x[5] | escape }}</span><span class="l-hi">{% if x[6] and x[6] != "" %}{{ x[6] | escape }}{% else %}{{ x[5] | escape }}{% endif %}</span></p></details>

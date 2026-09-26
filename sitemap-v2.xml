@@ -1,0 +1,11 @@
+---
+layout: null
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- assign d = site.time | date: "%Y-%m-%d" %}
+{%- for p in site.pages %}{% if p.sitemap == false or p.layout == nil or p.noindex %}{% continue %}{% endif %}{% if p.url contains ".html" or p.url == "/" %}
+<url><loc>{{ site.url }}{{ p.url }}</loc><lastmod>{{ d }}</lastmod><changefreq>weekly</changefreq><priority>{% if p.url == "/" %}1.0{% elsif p.trade or p.bank or p.full %}0.9{% else %}0.8{% endif %}</priority></url>
+{%- endif %}{% endfor %}
+</urlset>

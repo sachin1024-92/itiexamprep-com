@@ -1,0 +1,19 @@
+---
+layout: base
+title: "ITI Notes | Employability Skills, Workshop Calculation & Science, Engineering Drawing (Hindi + English)"
+desc: "Chapter-wise original ITI notes for common CBT subjects — Employability Skills, Workshop Calculation & Science and Engineering Drawing — with formulas, key points and practice MCQs."
+name: ["Notes","नोट्स"]
+h1: ["ITI common subject notes","ITI कॉमन विषय नोट्स"]
+lead: ["Short, exam-focused chapter notes written in our own words, in English and Hindi. Read a chapter, then test yourself.","परीक्षा-केंद्रित छोटे अध्याय नोट्स, हमारे अपने शब्दों में, अंग्रेज़ी और हिन्दी में। एक अध्याय पढ़ें, फिर खुद को परखें।"]
+---
+{%- assign U = site.data.ui -%}
+<section class="section"><div class="container">
+<div class="hub-grid">
+{%- for s in site.data.notes %}
+<div class="hub-card"><h3><a href="notes/{{ s[0] }}.html">{% assign _v = s[1].n %}{% include b.html v=_v %}</a></h3><p class="meta">{% assign _v = s[1].lead %}{% include b.html v=_v %}</p>
+<ol class="tight">{% for c in s[1].ch %}<li><a href="notes/{{ s[0] }}/{{ c.id }}.html">{% include b.html v=c.n %}</a></li>{% endfor %}</ol>
+<div class="acts"><a class="btn btn-secondary btn-sm" href="practice/{{ s[1].test }}.html">▶ {% include b.html v=U.testYourself %}</a></div></div>
+{%- endfor %}
+</div>
+<p class="mt-2"><span class="l-en">Trade theory notes live in each</span><span class="l-hi">ट्रेड थ्योरी की रूपरेखा हर</span> <a href="trades.html">{% include b.html v=U.trades %}</a> <span class="l-en">hub, plus revision checklists on the</span><span class="l-hi">हब में है, और रिवीज़न चेकलिस्ट</span> <a href="blog/index.html">{% include b.html v=U.blog %}</a>.</p>
+</div></section>

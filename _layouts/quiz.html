@@ -1,0 +1,32 @@
+---
+layout: base
+---
+{%- assign _d = page.url | split: '/' | size | minus: 2 -%}{%- capture R -%}{%- for i in (1.._d) -%}../{%- endfor -%}{%- endcapture -%}
+{%- assign U = site.data.ui -%}
+<section class="section"><div class="container">
+{%- if page.full %}
+<div id="cbt" class="cbt" data-full="1" data-root="{{ R }}" data-key="full" data-title-en="Full CBT mock" data-title-hi="फुल CBT मॉक">
+  <div class="cbt-setup card">
+    <h2><span class="l-en">Build your CBT-style full mock</span><span class="l-hi">अपना CBT-स्टाइल फुल मॉक बनाएँ</span></h2>
+    <p><span class="l-en">Choose your trade. Engineering trades get Trade Theory + Workshop Calculation &amp; Science + Engineering Drawing + Employability Skills; non-engineering trades get Trade Theory + Employability Skills — the same subject mix described on our exam pattern page. Question counts follow that split as far as our bank allows. The timer runs at the real paper's pace (1.6 minutes per question) and there is no negative marking.</span><span class="l-hi">अपना ट्रेड चुनें। इंजीनियरिंग ट्रेड में ट्रेड थ्योरी + वर्कशॉप कैलकुलेशन एवं साइंस + इंजीनियरिंग ड्राइंग + एम्प्लॉयबिलिटी स्किल्स आते हैं; नॉन-इंजीनियरिंग ट्रेड में ट्रेड थ्योरी + एम्प्लॉयबिलिटी स्किल्स — वही विषय-मिश्रण जो हमारे परीक्षा पैटर्न पेज पर बताया गया है। प्रश्नों की संख्या हमारे बैंक के अनुसार उसी अनुपात में रखी गई है। टाइमर असली पेपर की गति (1.6 मिनट प्रति प्रश्न) से चलता है और कोई नेगेटिव मार्किंग नहीं है।</span></p>
+    <label class="field"><span class="l-en">Trade</span><span class="l-hi">ट्रेड</span>
+      <select id="cbt-trade">{% for t in site.data.trades %}<option value="{{ t[0] }}" data-type="{{ t[1].type }}">{{ t[1].n[0] }} / {{ t[1].n[1] }}</option>{% endfor %}</select></label>
+    <button type="button" class="btn btn-amber" id="cbt-build">▶ <span class="l-en">Start full mock</span><span class="l-hi">फुल मॉक शुरू करें</span></button>
+    <p class="note"><a href="{{ R }}pages/exam-pattern.html">{% include b.html v=U.pattern %} →</a></p>
+  </div>
+</div>
+{%- else %}
+{%- assign Q = site.data.q[page.bank] -%}
+<div id="cbt" class="cbt" data-key="{{ page.bank }}" data-title-en="{{ Q.n[0] }}" data-title-hi="{{ Q.n[1] }}"></div>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":{{ Q.n[0] | prepend: "ITI " | append: " practice MCQs" | jsonify }},"educationalLevel":"ITI / CTS","inLanguage":["en-IN","hi-IN"],"isAccessibleForFree":true,"provider":{"@type":"Organization","name":"ITI Exam Prep","url":"https://itiexamprep.com/"}}</script>
+<script type="application/json" id="qbank">{{ Q | jsonify | replace: "</", "<\/" }}</script>
+<noscript><p>Enable JavaScript for the timed test. All questions with answers are listed below.</p></noscript>
+<div class="prose qbank">
+<h2>{% include b.html v=U.qbank %} ({{ Q.q | size }})</h2>
+<p class="note">{% include b.html v=U.origNote %}</p>
+{%- for x in Q.q %}{% include qa.html x=x n=forloop.index %}{% endfor %}
+<p>{% if Q.hub %}<a class="btn btn-secondary btn-sm" href="{{ R }}{{ Q.hub }}">← <span class="l-en">Back to hub / notes</span><span class="l-hi">हब / नोट्स पर वापस</span></a> {% endif %}<a class="btn btn-secondary btn-sm" href="{{ R }}pages/mock-tests.html">{% include b.html v=U.allmocks %}</a></p>
+</div>
+{%- endif %}
+</div></section>
+<script src="{{ R }}assets/js/cbt.js" defer></script>
