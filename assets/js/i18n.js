@@ -1,4 +1,4 @@
-/* ITI Exam Prep — i18n bootstrap (loads base dict + RAC/MMV extras) */
+/* ITI Exam Prep — i18n bootstrap (loads base dict + RAC/MMV + Turner extras) */
 (function () {
   "use strict";
   function loadScript(src, onload) {
@@ -18,7 +18,11 @@
   }
   loadScript(base, function () {
     loadScript(sibling("i18n-rac-mmv-en.js"), function () {
-      loadScript(sibling("i18n-rac-mmv-hi.js"));
+      loadScript(sibling("i18n-rac-mmv-hi.js"), function () {
+        loadScript(sibling("i18n-turner-en.js"), function () {
+          loadScript(sibling("i18n-turner-hi.js"));
+        });
+      });
     });
   });
 })();
