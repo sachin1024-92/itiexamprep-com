@@ -1,0 +1,4 @@
+---
+bank: mechanic-diesel
+---
+{{ site.data.q[page.bank] | jsonify }}

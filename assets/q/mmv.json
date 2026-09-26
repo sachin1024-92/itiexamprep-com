@@ -1,0 +1,4 @@
+---
+bank: mmv
+---
+{{ site.data.q[page.bank] | jsonify }}

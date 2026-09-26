@@ -1,0 +1,4 @@
+---
+bank: plumber
+---
+{{ site.data.q[page.bank] | jsonify }}

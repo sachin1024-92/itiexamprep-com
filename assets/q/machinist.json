@@ -1,0 +1,4 @@
+---
+bank: machinist
+---
+{{ site.data.q[page.bank] | jsonify }}

@@ -1,0 +1,4 @@
+---
+bank: draughtsman-civil
+---
+{{ site.data.q[page.bank] | jsonify }}
