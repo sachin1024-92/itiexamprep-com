@@ -1,1 +1,1 @@
-file:///workspace/itiexamprep.com/assets/js/i18n-carpenter-en.js
+PLACEHOLDER_LOAD_FROM_DISK
