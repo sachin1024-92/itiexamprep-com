@@ -26,7 +26,13 @@
                 loadScript(sibling("i18n-machinist-en.js"), function () {
                   loadScript(sibling("i18n-machinist-hi.js"), function () {
                     loadScript(sibling("i18n-draughtsman-en.js"), function () {
-                      loadScript(sibling("i18n-draughtsman-hi.js"));
+                      loadScript(sibling("i18n-draughtsman-hi.js"), function () {
+                        loadScript(sibling("i18n-draughtsman-hi2.js"), function () {
+                          loadScript(sibling("i18n-draughtsman-hi3.js"), function () {
+                            loadScript(sibling("i18n-draughtsman-hi4.js"));
+                          });
+                        });
+                      });
                     });
                   });
                 });
