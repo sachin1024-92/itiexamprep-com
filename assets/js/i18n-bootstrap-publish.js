@@ -1,4 +1,4 @@
-/* ITI Exam Prep — i18n bootstrap (loads base dict + RAC/MMV + Turner + Plumber + Machinist extras) */
+/* ITI Exam Prep — i18n bootstrap (loads base dict + RAC/MMV + Turner + Plumber + Machinist + Draughtsman extras) */
 (function () {
   "use strict";
   function loadScript(src, onload) {
@@ -24,7 +24,11 @@
             loadScript(sibling("i18n-plumber-en.js"), function () {
               loadScript(sibling("i18n-plumber-hi.js"), function () {
                 loadScript(sibling("i18n-machinist-en.js"), function () {
-                  loadScript(sibling("i18n-machinist-hi.js"));
+                  loadScript(sibling("i18n-machinist-hi.js"), function () {
+                    loadScript(sibling("i18n-draughtsman-en.js"), function () {
+                      loadScript(sibling("i18n-draughtsman-hi.js"));
+                    });
+                  });
                 });
               });
             });
