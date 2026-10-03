@@ -1,1 +1,1 @@
-FILE:///workspace/wireman-upload/i18n-wireman-en.js
+PLACEHOLDER_LOAD_FROM_/tmp/mcp_en_args.json
