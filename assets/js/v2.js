@@ -57,7 +57,7 @@
     inp.addEventListener("focus", load);
     inp.addEventListener("input", function () { clearTimeout(tm); tm = setTimeout(function () { search(inp.value, box, inp.hasAttribute("data-search-page") ? 60 : 12); }, 120); });
     inp.addEventListener("keydown", function (e) { if (e.key === "Enter") { var a = box.querySelector("a"); if (inp.hasAttribute("data-search-page")) return; if (a) location.href = a.href; } });
-    if (inp.hasAttribute("data-search-page")) { var m = /[?&]q=([^&]*)/.exec(location.search); if (m) { inp.value = decodeURIComponent(m[1].replace(/\+/g, " ")); search(inp.value, box, 60); } }
+    if (inp.hasAttribute("data-search-page")) { var m = /[?&]q=([^&]*)/.exec(location.search); if (m) { var q0 = ""; try { q0 = decodeURIComponent(m[1].replace(/\+/g, " ")); } catch (e) { } inp.value = q0.slice(0, 100); search(inp.value, box, 60); } }
   });
   document.addEventListener("keydown", function (e) { if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { e.preventDefault(); openSearch(); } });
 
@@ -65,10 +65,13 @@
   function renderProgress() {
     document.querySelectorAll("[data-progress]").forEach(function (el) {
       var p = {}; try { p = JSON.parse(localStorage.getItem("itie_progress") || "{}"); } catch (e) { }
-      var ks = Object.keys(p).sort(function (a, b) { return (p[b].t || 0) - (p[a].t || 0); }), L = lang();
+      if (!p || typeof p !== "object") p = {};
+      var ks = Object.keys(p).filter(function (k) { return p[k] && typeof p[k] === "object"; }).sort(function (a, b) { return (Number(p[b].t) || 0) - (Number(p[a].t) || 0); }), L = lang();
       if (!ks.length) { el.innerHTML = '<p class="note">' + (L === "hi" ? "अभी तक कोई टेस्ट नहीं दिया। कोई भी प्रैक्टिस टेस्ट दें — आपके स्कोर इसी डिवाइस पर सेव होंगे (कोई लॉगिन नहीं)।" : "No tests attempted yet. Take any practice test — your scores are saved on this device only (no login).") + "</p>"; return; }
       var lim = parseInt(el.getAttribute("data-progress"), 10) || 100, tot = 0, sum = 0;
-      var rows = ks.slice(0, lim).map(function (k) { var r = p[k]; tot += r.n; sum += r.best; var u = r.url ? R + r.url.replace(/^\/?(itiexamprep-com\/)?/, "") : "#"; if (!/^pages\//.test(r.url || "")) { var m = /pages\/.+$/.exec(r.url || ""); u = m ? R + m[0] : "#"; } return '<tr><td><a href="' + u + '">' + esc(r.title || k) + "</a></td><td>" + r.n + "</td><td>" + r.last + "%</td><td><b>" + r.best + "%</b></td></tr>"; }).join("");
+      /* Saved progress is read back from this device's storage, so treat every field as untrusted: numbers are coerced and text is escaped before it goes into the page. */
+      function num(v) { v = Number(v); return isFinite(v) ? Math.max(0, Math.round(v)) : 0; }
+      var rows = ks.slice(0, lim).map(function (k) { var r = p[k]; if (!r || typeof r !== "object") return ""; var url = typeof r.url === "string" ? r.url : ""; var m = /pages\/[A-Za-z0-9_\-\/.]+\.html(\?[A-Za-z0-9_\-=&]*)?/.exec(url); var u = m ? R + m[0] : "#"; tot += num(r.n); sum += num(r.best); return '<tr><td><a href="' + esc(u) + '">' + esc(r.title || k) + "</a></td><td>" + num(r.n) + "</td><td>" + num(r.last) + "%</td><td><b>" + num(r.best) + "%</b></td></tr>"; }).join("");
       el.innerHTML = '<div class="table-wrap"><table><tr><th>' + (L === "hi" ? "टेस्ट" : "Test") + "</th><th>" + (L === "hi" ? "प्रयास" : "Attempts") + "</th><th>" + (L === "hi" ? "पिछला" : "Last") + "</th><th>" + (L === "hi" ? "सर्वश्रेष्ठ" : "Best") + "</th></tr>" + rows + "</table></div>" + (el.hasAttribute("data-progress-reset") ? '<button type="button" class="btn btn-ghost btn-sm" data-reset>' + (L === "hi" ? "प्रगति रीसेट करें" : "Reset progress") + "</button>" : "");
       var rb = el.querySelector("[data-reset]"); if (rb) rb.addEventListener("click", function () { if (confirm(L === "hi" ? "सारी प्रगति मिटानी है?" : "Delete all saved progress?")) { localStorage.removeItem("itie_progress"); renderProgress(); } });
     });
