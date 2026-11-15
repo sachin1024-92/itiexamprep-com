@@ -16,6 +16,8 @@ from html.parser import HTMLParser
 
 errors: list[str] = []
 
+ORDER_DEPENDENT = re.compile(r"[Oo]ption [A-D]\b|विकल्प [A-D]|[Oo]f the above|उपरोक्त|\b[A-D] (and|or|और|या|व) [A-D]\b")
+
 
 def check_question_banks() -> int:
     total = 0
@@ -48,6 +50,12 @@ def check_question_banks() -> int:
                 errors.append(f"{where}: {len(opts_en)} English options but {len(opts_hi)} Hindi")
             if not isinstance(answer, int) or not 0 <= answer < len(opts_en):
                 errors.append(f"{where}: answer index {answer!r} is out of range")
+            # Options are shuffled on every attempt, so nothing may refer to their position.
+            # Keep this pattern the same as NOSH in assets/js/cbt.js.
+            for text in (q_en, q_hi, exp_en, exp_hi, *opts_en, *opts_hi):
+                if ORDER_DEPENDENT.search(str(text)):
+                    errors.append(f"{where}: wording depends on option order ({str(text)[:60]!r}); name the thing instead")
+                    break
             key = str(q_en).strip().lower()
             if key in seen:
                 errors.append(f"{where}: same question as number {seen[key]}")

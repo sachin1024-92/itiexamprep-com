@@ -11,7 +11,9 @@
   function t(k) { return UI[lang()][k] || UI.en[k] || k; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
-  var NOSH = /option|विकल्प|above|both|A and B|उपरोक्त|दोनों|none of/i;
+  // Options keep their order only when the wording points at a position ("Option B", "all of the above").
+  // scripts/validate.py rejects such wording, so in practice every question is shuffled.
+  var NOSH = /[Oo]ption [A-D]\b|विकल्प [A-D]|[Oo]f the above|उपरोक्त|\b[A-D] (and|or|और|या|व) [A-D]\b/;
   function norm(bank) {
     return (bank.q || []).map(function (a, i) {
       var o = a[2], oh = (a[3] && a[3].length === a[2].length) ? a[3] : a[2], ans = a[4];

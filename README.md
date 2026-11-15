@@ -34,7 +34,7 @@ Each entry in `_data/q/<id>.json` is:
 [question_en, question_hi, [options_en], [options_hi], answer_index, explanation_en, explanation_hi]
 ```
 
-`options_hi` may be an empty list when the options are numbers or units; the English options are then shown in both languages. Options are shuffled on each attempt, so the stored answer position does not matter.
+`options_hi` may be an empty list when the options are numbers or units; the English options are then shown in both languages. Options are shuffled on each attempt, so the stored answer position does not matter. For the same reason, never write "Option B" or "all of the above"; name the thing instead. The validator rejects such wording.
 
 ## Content
 
