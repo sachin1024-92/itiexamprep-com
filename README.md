@@ -18,6 +18,10 @@ The site is built by Jekyll on GitHub Pages. Content lives in `_data/` as JSON, 
 jekyll build -d /tmp/site      # Jekyll 3.x, as used by GitHub Pages
 ```
 
+## Hosting on Hostinger (optional)
+
+The `Build for Hostinger` workflow builds the site with the same Jekyll version as GitHub Pages and, on every push to `main`, publishes the built files to the `hostinger-live` branch. To serve the site from Hostinger, connect GitHub in hPanel and deploy that branch as a static site. GitHub Pages keeps working alongside it until the domain's DNS is switched.
+
 ## Check content before publishing
 
 ```bash

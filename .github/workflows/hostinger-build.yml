@@ -1,0 +1,70 @@
+name: Build for Hostinger
+
+# GitHub Pages builds this Jekyll site by itself; Hostinger only serves ready-made files.
+# This workflow builds the site exactly as GitHub Pages does and, on main, publishes the
+# built files to the `hostinger-live` branch. Hostinger's Git deployment follows that branch.
+# On pull requests it only builds and checks, so a broken build is caught before merging.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hostinger-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with the GitHub Pages version of Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: .
+          destination: ./_site
+      - name: Check the built site
+        run: |
+          sudo chown -R "$(id -u):$(id -g)" _site
+          test -s _site/index.html
+          test -s _site/404.html
+          test -s _site/.htaccess
+          test -s _site/sitemap.xml
+          python3 - <<'PY'
+          import glob, json, os, sys
+          banks = sorted(glob.glob("_data/q/*.json"))
+          for path in banks:
+              name = os.path.basename(path)
+              built = json.load(open(os.path.join("_site/assets/q", name), encoding="utf-8"))
+              source = json.load(open(path, encoding="utf-8"))
+              if built != source:
+                  sys.exit(f"{name}: built question bank differs from the source")
+              if not os.path.getsize(f"_site/pages/practice/{name[:-5]}.html"):
+                  sys.exit(f"{name}: practice page is empty")
+          print(f"{len(banks)} question banks built correctly")
+          PY
+      - name: Publish built files to the hostinger-live branch
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          REMOTE: https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git
+        run: |
+          if git ls-remote --exit-code --heads "$REMOTE" hostinger-live >/dev/null; then
+            git clone --quiet --depth 1 --branch hostinger-live "$REMOTE" out
+          else
+            mkdir out && git -C out init --quiet -b hostinger-live && git -C out remote add origin "$REMOTE"
+          fi
+          rsync -a --delete --exclude .git _site/ out/
+          cd out
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Built site is unchanged; nothing to publish."
+          else
+            git commit --quiet -m "Build of ${GITHUB_SHA::7}"
+            git push --quiet origin hostinger-live
+          fi
