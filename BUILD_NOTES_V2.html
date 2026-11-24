@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>v2 architecture (Jekyll, Sep 2026) | ITI Exam Prep</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="v2 architecture (Jekyll, Sep 2026)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Static ITI Exam Prep site for itiexamprep.com" />
+<meta property="og:description" content="Static ITI Exam Prep site for itiexamprep.com" />
+<link rel="canonical" href="https://itiexamprep.com/itiexamprep-com/BUILD_NOTES_V2.html" />
+<meta property="og:url" content="https://itiexamprep.com/itiexamprep-com/BUILD_NOTES_V2.html" />
+<meta property="og:site_name" content="ITI Exam Prep" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="v2 architecture (Jekyll, Sep 2026)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Static ITI Exam Prep site for itiexamprep.com","headline":"v2 architecture (Jekyll, Sep 2026)","url":"https://itiexamprep.com/itiexamprep-com/BUILD_NOTES_V2.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/itiexamprep-com/assets/css/style.css?v=0d10e9f881c8d678a62fa7981892479fbc02e86f">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/itiexamprep-com/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://itiexamprep.com/itiexamprep-com/">ITI Exam Prep</a></h1>
+      
+
+      <h2 id="v2-architecture-jekyll-sep-2026">v2 architecture (Jekyll, Sep 2026)</h2>
+<ul>
+  <li>GitHub Pages builds this repo with Jekyll (no .nojekyll). Old static HTML without front matter (incl. pages/blog/*) is copied unchanged, so the blog routine keeps working (it edits sitemap.xml + pages/blog/index.html only).</li>
+  <li>Content lives in <code class="language-plaintext highlighter-rouge">_data/</code>: <code class="language-plaintext highlighter-rouge">trades/&lt;id&gt;.json</code> (15 hubs), <code class="language-plaintext highlighter-rouge">q/&lt;id&gt;.json</code> (18 question banks: <code class="language-plaintext highlighter-rouge">[q_en,q_hi,[opts_en],[opts_hi],ansIdx,exp_en,exp_hi]</code>), <code class="language-plaintext highlighter-rouge">notes/{es,wcs,ed}.json</code> (chapters), <code class="language-plaintext highlighter-rouge">guides/&lt;id&gt;.json</code>, <code class="language-plaintext highlighter-rouge">ui.json</code> (bilingual UI strings), <code class="language-plaintext highlighter-rouge">home.json</code>.</li>
+  <li>Pages are tiny stubs with front matter (<code class="language-plaintext highlighter-rouge">trade:</code>, <code class="language-plaintext highlighter-rouge">bank:</code>, <code class="language-plaintext highlighter-rouge">subj:</code>+<code class="language-plaintext highlighter-rouge">ch:</code>, <code class="language-plaintext highlighter-rouge">guide:</code>) rendered by <code class="language-plaintext highlighter-rouge">_layouts/{trade,quiz,notes,guide}.html</code> via <code class="language-plaintext highlighter-rouge">_layouts/base.html</code>. <code class="language-plaintext highlighter-rouge">assets/q/&lt;id&gt;.json</code> and <code class="language-plaintext highlighter-rouge">assets/data/search.json</code> are generated from <code class="language-plaintext highlighter-rouge">_data</code>.</li>
+  <li>To add a trade: add <code class="language-plaintext highlighter-rouge">_data/trades/&lt;id&gt;.json</code> + <code class="language-plaintext highlighter-rouge">_data/q/&lt;id&gt;.json</code>, then stubs <code class="language-plaintext highlighter-rouge">pages/trades/&lt;id&gt;.html</code>, <code class="language-plaintext highlighter-rouge">pages/practice/&lt;id&gt;.html</code>, <code class="language-plaintext highlighter-rouge">assets/q/&lt;id&gt;.json</code> (copy an existing one, change the id). Nav, grids, search and sitemap-v2.xml update automatically.</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Bilingual: <code class="language-plaintext highlighter-rouge">&lt;span class="l-en"&gt;/&lt;span class="l-hi"&gt;</code> toggled by CSS on <code class="language-plaintext highlighter-rouge">html[data-lang]</code>; <code class="language-plaintext highlighter-rouge">assets/js/v2.js</code> handles the EN</td>
+          <td>हिन्दी switch (localStorage <code class="language-plaintext highlighter-rouge">itie_lang</code>). Quiz engine: <code class="language-plaintext highlighter-rouge">assets/js/cbt.js</code> (options shuffled per attempt; progress in localStorage <code class="language-plaintext highlighter-rouge">itie_progress</code>).</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>Local build: <code class="language-plaintext highlighter-rouge">jekyll build -d /tmp/site</code> (Jekyll 3.x, as on GitHub Pages).</li>
+  <li>IMPORTANT for Hostinger/itiexamprep.com later: upload the BUILT output (<code class="language-plaintext highlighter-rouge">_site</code> / /tmp/site), not the raw repo source.</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
