@@ -1,7 +1,7 @@
 # ITI Exam Prep — Build Notes
 
 **Site:** https://itiexamprep.com  
-**Brand:** ITI Exam Prep (Success Tips / Sachin Majhee, Jabalpur, MP)  
+**Brand:** ITI Exam Prep (Success Tips / Sachin, Jabalpur, MP)  
 **Stack:** Static HTML + CSS + JS (no build step)  
 **Updated:** 24 Sep 2026
 
